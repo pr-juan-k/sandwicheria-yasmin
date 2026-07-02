@@ -193,7 +193,7 @@ const menuData = {
     products: {
       'bandeja_grande': {
         name: 'Bandeja Papas',
-        price: 3000,
+        price: 5000,
         image: 'images/papas-bandeja-chica.jpg'
       }
     }
