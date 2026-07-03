@@ -746,6 +746,8 @@ function updateCurrentPrice() {
   document.getElementById('currentPrice').textContent = `$${price.toLocaleString()}`;
 }
 
+
+
 // ========================================
 // Agregar Producto Personalizado
 // ========================================
