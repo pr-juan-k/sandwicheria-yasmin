@@ -2,7 +2,30 @@
 // Configuracion - Cambia el numero de WhatsApp aqui
 // ========================================
 const WHATSAPP_NUMBER = '5493816024454'; // Formato: codigo pais + numero sin espacios ni guiones
+let extraPapasCount = 0;
+function changePapas(delta) {
+  const categoryData = menuData[selectedCategory];
+  const newCount = extraPapasCount + delta;
+  
+  // Limitamos entre 0 y un máximo razonable (ej. 5 porciones)
+  if (newCount >= 0 && newCount <= 5) {
+    extraPapasCount = newCount;
+    document.getElementById('papasCount').textContent = extraPapasCount;
+    updateCurrentPrice();
+    updatePapasButtons();
+  }
+}
 
+function updatePapasButtons() {
+  const minusBtn = document.getElementById('papasMinus');
+  const plusBtn = document.getElementById('papasPlus');
+  
+  if (minusBtn && plusBtn) {
+    minusBtn.disabled = extraPapasCount === 0;
+    // Opcional: deshabilitar el + si llega al máximo de 5
+    plusBtn.disabled = extraPapasCount >= 5; 
+  }
+}
 // ========================================
 // Datos del Menu
 // ========================================
@@ -13,6 +36,8 @@ const menuData = {
     image: 'images/milanesa.jpeg',
     hasVariety: true,
     varieties: ['carne', 'molida'],
+    hasExtraPapas: true,
+    extraPapasPrice: 500,
     products: {
       carne: {
         comun: {
@@ -122,6 +147,8 @@ const menuData = {
     hasMedallions: true,
     medallionPrice: 1000,
     maxMedallions: 3,
+    hasExtraPapas: true, // <-- NUEVO
+    extraPapasPrice: 500, // <-- NUEVO
     products: {
       comun: {
         name: 'Hamburguesa Gigante Comun',
@@ -435,6 +462,7 @@ function renderCustomization(category, variety = null) {
   selectedProductType = Object.keys(products)[0];
   removedIngredients = [];
   extraMedallions = 0;
+  extraPapasCount = 0; // <-- NUEVO
   
   let html = '<div class="product-options">';
   
@@ -464,7 +492,7 @@ function renderCustomization(category, variety = null) {
   
   html += '</div></div>';
   
-  // Ingredients checkboxes - will be updated dynamically
+  // Ingredients checkboxes
   const firstProduct = products[Object.keys(products)[0]];
   if (firstProduct.ingredients) {
     html += `
@@ -476,7 +504,7 @@ function renderCustomization(category, variety = null) {
     `;
   }
   
-  // Extra medallions for hamburgers
+  // Extra medallions
   if (categoryData.hasMedallions) {
     html += `
       <div class="option-group">
@@ -490,6 +518,26 @@ function renderCustomization(category, variety = null) {
             <button class="medallion-btn" onclick="changeMedallions(-1)" id="medalionMinus">-</button>
             <span class="medallions-count" id="medallionsCount">0</span>
             <button class="medallion-btn" onclick="changeMedallions(1)" id="medalionPlus">+</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // <-- NUEVO: Bloque HTML para Papas Extras
+  if (categoryData.hasExtraPapas) {
+    html += `
+      <div class="option-group">
+        <div class="option-group-title">Papas Fritas Extras</div>
+        <div class="medallions-counter">
+          <div class="medallions-info">
+            <span class="medallions-label">Agregar porción de papas</span>
+            <span class="medallions-price">$${categoryData.extraPapasPrice.toLocaleString()} c/u</span>
+          </div>
+          <div class="medallions-controls">
+            <button class="medallion-btn" onclick="changePapas(-1)" id="papasMinus">-</button>
+            <span class="medallions-count" id="papasCount">0</span>
+            <button class="medallion-btn" onclick="changePapas(1)" id="papasPlus">+</button>
           </div>
         </div>
       </div>
@@ -515,6 +563,11 @@ function renderCustomization(category, variety = null) {
   // Render ingredients for the selected product type
   updateIngredientsForSelectedType();
   updateMedallionButtons();
+  
+  // <-- NUEVO: Actualizar botones de papas al iniciar
+  if (typeof updatePapasButtons === 'function') {
+    updatePapasButtons();
+  }
 }
 
 // ========================================
@@ -685,6 +738,11 @@ function updateCurrentPrice() {
     price += extraMedallions * categoryData.medallionPrice;
   }
   
+  // <-- NUEVO: Sumar precio de las papas extras
+  if (categoryData.hasExtraPapas && extraPapasCount > 0) {
+    price += extraPapasCount * categoryData.extraPapasPrice;
+  }
+  
   document.getElementById('currentPrice').textContent = `$${price.toLocaleString()}`;
 }
 
@@ -703,11 +761,16 @@ function addCustomProduct() {
     price += extraMedallions * categoryData.medallionPrice;
     details.push(`+${extraMedallions} medallon${extraMedallions > 1 ? 'es' : ''}`);
   }
+
+  // <-- NUEVO: Guardar precio y detalle de las papas
+  if (categoryData.hasExtraPapas && extraPapasCount > 0) {
+    price += extraPapasCount * categoryData.extraPapasPrice;
+    details.push(`+${extraPapasCount} porción${extraPapasCount > 1 ? 'es' : ''} de papas extra`);
+  }
   
-// Filtramos para saber qué ingredientes quitar y cuáles agregar (como el ají)
+  // Filtramos para saber qué ingredientes quitar y cuáles agregar (como el ají)
   const toRemove = removedIngredients.filter(i => i.toLowerCase() !== 'aji');
   const toAdd = removedIngredients.filter(i => i.toLowerCase() === 'aji' && !removedIngredients.includes('aji'));
-  // En realidad, para el ají es más fácil ver si el usuario lo TIENE marcado:
   const ajiMarcado = document.querySelector('input[onchange*="aji"]')?.checked;
 
   if (toRemove.length > 0) {
@@ -719,20 +782,15 @@ function addCustomProduct() {
 
   // LÓGICA DE ALMACENAMIENTO PARA PROMOCIONES
   if (categoryData.isPromo) {
-    // 1. Guardamos la configuración de esta milanesa actual
     let descripcionItem = `Mila ${currentPromoCount}`;
     if (details.length > 0) descripcionItem += ` (${details.join(' | ')})`;
     configuredPromoItems.push(descripcionItem);
 
-    // 2. ¿Faltan milanesas?
     if (currentPromoCount < product.promoCount) {
       currentPromoCount++;
-      // Recargamos los ingredientes en pantalla para armar la siguiente
       updateIngredientsForSelectedType();
-      // Salimos de la función sin agregar al carrito aún
       return; 
     } else {
-      // 3. Si ya completamos todas, armamos el detalle final usando un salto de línea
       details = [configuredPromoItems.join('\n   ↳ ')];
     }
   }
@@ -757,7 +815,7 @@ function addCustomProduct() {
     animarBotonOtroPedido();
   }
 
-  // Reiniciamos variables por si compra otra promo luego
+  // Reiniciamos variables
   currentPromoCount = 1;
   configuredPromoItems = [];
 }
@@ -916,7 +974,7 @@ function resetSelections() {
   removedIngredients = [];
   extraMedallions = 0;
   selectedPapasAddon = false;
-  // Reiniciar promos
+  extraPapasCount = 0; // <-- NUEVO: Reiniciar papas
   currentPromoCount = 1;
   configuredPromoItems = [];
 }
