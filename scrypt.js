@@ -497,7 +497,7 @@ function renderCustomization(category, variety = null) {
   if (firstProduct.ingredients) {
     html += `
       <div class="option-group" id="ingredientsGroup">
-        <div class="option-group-title">Quitar ingredientes</div>
+        <div class="option-group-title">Quitar ingredientes (desmarque lo que no desea)</div>
         <div class="ingredients-list" id="ingredientsList">
         </div>
       </div>
