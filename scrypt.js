@@ -42,25 +42,25 @@ const menuData = {
       carne: {
         comun: {
           name: 'Carne Gigante Comun',
-          price: 5500,
+          price: 6000,
           ingredients: ['lechuga', 'tomate', 'mayonesa', 'mostaza','aji'],
           image: 'images/milanesa.jpeg'
         },
         especial: {
           name: 'Carne Gigante Especial',
-          price: 7000,
+          price: 7500,
           ingredients: ['lechuga', 'tomate', , 'mayonesa', 'mostaza' ,'jamon', 'huevo', 'papas fritas','aji'],
           image: 'images/milanesa-p.jpeg'
         },
         comun1: {
           name: 'Carne Chica Comun',
-          price: 4000,
+          price: 4500,
           ingredients: ['lechuga', 'tomate', 'mayonesa', 'mostaza','aji'],
           image: 'images/milanesa.jpeg'
         },
         especial2: {
           name: 'Carne Chica Especial',
-          price: 5000,
+          price: 5500,
           ingredients: ['lechuga', 'tomate', , 'mayonesa', 'mostaza' ,'jamon', 'huevo', 'papas fritas','aji'],
           image: 'images/milanesa-p.jpeg'
         }
@@ -68,24 +68,24 @@ const menuData = {
       molida: {
         comun: {
           name: 'Molida Gigante Comun',
-          price: 3000,
+          price: 3500,
           ingredients: ['tomate', 'lechuga', 'mayonesa', 'mostaza','aji'],
           image: 'images/milanesa.jpeg'
         },
         especial: {
           name: 'Molida Gigante Especial',
-          price: 4000,
+          price: 4500,
           ingredients: ['lechuga', 'tomate','mayonesa', 'mostaza', 'huevo','jamon', 'papas fritas','aji'],
           image: 'images/milanesa-p.jpeg'
         },comun2: {
           name: 'Molida Chica Comun',
-          price: 2500,
+          price: 2800,
           ingredients: ['tomate', 'lechuga', 'mayonesa', 'mostaza','aji'],
           image: 'images/milanesa.jpeg'
         },
         especial2: {
           name: 'Molida Chica Especial',
-          price: 3500,
+          price: 3800,
           ingredients: ['lechuga', 'tomate', 'mayonesa', 'mostaza','huevo','jamon', 'papas fritas','aji'],
           image: 'images/milanesa-p.jpeg'
         }
@@ -101,7 +101,7 @@ const menuData = {
     products: {
       '1persona': {
         name: 'Napolitana de carne 1 Persona',
-        price: 10000,
+        price: 11000,
         image: 'images/milanesa-napolitana.jpg',
         description: 'Al plato con papas fritas'
       },
@@ -119,7 +119,7 @@ const menuData = {
       },
       '2personas molida': {
         name: 'Napolitana de molida 2 Personas',
-        price: 14000,
+        price: 15000,
         image: 'images/milanesa-napolitana.jpg',
         description: 'Al plato con papas fritas'
       },
@@ -127,13 +127,13 @@ const menuData = {
 
        'f-persona molida': {
         name: 'Napolitana de Carne FAMILIAR',
-        price: 25000,
+        price: 27000,
         image: 'images/milanesa-napolitana.jpg',
         description: 'Al plato con papas fritas'
       },
       'f-personas molida': {
         name: 'Napolitana de molida FAMILIAR',
-        price: 17000,
+        price: 18000,
         image: 'images/milanesa-napolitana.jpg',
         description: 'Al plato con papas fritas'
       }
@@ -164,7 +164,7 @@ const menuData = {
       },
       hamburbumi: {
         name: 'Hamburguesa Gigante Especial Cheddar',
-        price: 6500,
+        price: 7000,
         ingredients: ['lechuga', 'tomate', 'mayonesa', 'mostaza',  'queso cheddar', 'jamon','huevo', 'papas fritas','aji'],
         image: 'images/completa.jpeg'
       }
@@ -198,8 +198,8 @@ const menuData = {
       
       
       especial1: {
-        name: 'Pizza y Huevo',
-        price: 8000,
+        name: 'Pizza con Papas y Huevo',
+        price: 8500,
         image: 'images/1pizza-especial.jpg'
       },
       especial3: {
@@ -220,7 +220,7 @@ const menuData = {
     products: {
       'bandeja_grande': {
         name: 'Bandeja Papas',
-        price: 5000,
+        price: 5500,
         image: 'images/papas-bandeja-chica.jpg'
       }
     }
@@ -1343,3 +1343,5 @@ function animarBotonOtroPedido() {
     boton.classList.add('animacion-parpadeo');
   }
 }
+
+// Link EXEL ( https://docs.google.com/spreadsheets/d/1n9pWX7tEE2E8wDJfGGxYPjAlWkqXXcvdAxa_a272Z_g/edit?gid=0#gid=0 )
