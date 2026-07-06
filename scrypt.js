@@ -1236,7 +1236,7 @@ function sendWhatsApp() {
   
   // --- INICIO DE CONTEO EN GOOGLE SHEETS ---
   // Reemplaza esto con el enlace larguísimo que copiaste en el Paso 3
-  const urlGoogleSheet = 'https://script.google.com/macros/s/AKfycbwpoeVxaB6LC84nHx7Hz-U1IoZMerpmf9G0NFWKUNPjxO-HKrsvEjS-ysY1bcGQyr7NVw/exec';
+  const urlGoogleSheet = 'https://script.google.com/macros/s/AKfycbzkO2iRy-gPQxnOCbFysQ01wvPYB9ZfQnYIEuVDLvhfYtOuTfbKzDoDqX2zELeLRBrD/exec';
   
   // Enviamos los datos de fondo sin que el usuario lo note
   fetch(urlGoogleSheet, {
