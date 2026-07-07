@@ -138,14 +138,13 @@ const menuData = {
         description: 'Al plato con papas fritas'
       }
     }
-  },
-
+  }, 
   hamburguesas: {
     name: 'Hamburguesas',
     image: 'images/hamburguesa.jpg',
     hasVariety: false,
     hasMedallions: true,
-    medallionPrice: 1000,
+    medallionPrice: 1500,
     maxMedallions: 3,
     hasExtraPapas: true, // <-- NUEVO
     extraPapasPrice: 500, // <-- NUEVO
