@@ -1353,20 +1353,19 @@ function verificarHorario() {
   const horas = ahora.getHours();
   const minutos = ahora.getMinutes();
   
-  // Convertimos la hora a un número decimal para facilitar la comparación (ej: 20:30 = 20.5)
+  // Convertimos la hora a un número decimal (ej: 20:30 = 20.5)
   const horaActual = horas + (minutos / 60);
 
-  // Horario 1: De 11:00 a 15:00 (11.0 hasta antes de las 15.0)
+  // Horario 1: De 11:00 a 15:00 
   const turnoMañana = horaActual >= 11 && horaActual < 15;
   
-  // Horario 2: De 20:00 a 00:30 del día siguiente
-  // Comprobamos si son más de las 20:00 o si es la medianoche (entre las 00:00 y las 00:30)
-  const turnoNoche = horaActual >= 20 || horaActual <= 0.5;
+  // Horario 2: De 20:30 a 00:30 del día siguiente
+  // Cambiamos el 20 por 20.5 para representar las 20:30
+  const turnoNoche = horaActual >= 20.5 || horaActual <= 0.5;
 
   const estaAbierto = turnoMañana || turnoNoche;
 
   if (!estaAbierto) {
-    // Si está cerrado, buscamos la sección principal y la reemplazamos con el mensaje
     const step1 = document.getElementById('step1');
     if (step1) {
       step1.innerHTML = `
@@ -1381,23 +1380,20 @@ function verificarHorario() {
             Nuestros horarios de atención son:<br>
             <strong style="color: #fff;">11:00 a 15:00</strong><br>
             y de<br>
-            <strong style="color: #fff;">20:00 a 00:30</strong>
+            <strong style="color: #fff;">20:30 a 00:30</strong>
           </p>
         </div>
       `;
     }
 
-    // Opcional: Ocultar la barra inferior del carrito si existe
     const floatingCart = document.querySelector('.floating-cart'); 
     if (floatingCart) {
       floatingCart.style.display = 'none';
     }
     
-    // Retornamos false para avisarle al resto del código que no debe cargar el menú
     return false; 
   }
 
-  // Si está abierto, retornamos true para que la App siga funcionando normal
   return true;
 }
 
