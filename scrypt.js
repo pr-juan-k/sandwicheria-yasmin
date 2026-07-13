@@ -270,6 +270,9 @@ document.addEventListener('DOMContentLoaded', function() {
 // Renderizado del Menu Principal
 // ========================================
 function renderMenuItems() {
+  // NUEVO: Verificamos el horario antes de hacer cualquier cosa
+  if (!verificarHorario()) return; 
+  
   const menuGrid = document.getElementById('menuGrid');
   menuGrid.innerHTML = '';
   
@@ -1343,4 +1346,62 @@ function animarBotonOtroPedido() {
   }
 }
 
+
+//LOCAL HABIERTO
+function verificarHorario() {
+  const ahora = new Date();
+  const horas = ahora.getHours();
+  const minutos = ahora.getMinutes();
+  
+  // Convertimos la hora a un número decimal para facilitar la comparación (ej: 20:30 = 20.5)
+  const horaActual = horas + (minutos / 60);
+
+  // Horario 1: De 11:00 a 15:00 (11.0 hasta antes de las 15.0)
+  const turnoMañana = horaActual >= 11 && horaActual < 15;
+  
+  // Horario 2: De 20:00 a 00:30 del día siguiente
+  // Comprobamos si son más de las 20:00 o si es la medianoche (entre las 00:00 y las 00:30)
+  const turnoNoche = horaActual >= 20 || horaActual <= 0.5;
+
+  const estaAbierto = turnoMañana || turnoNoche;
+
+  if (!estaAbierto) {
+    // Si está cerrado, buscamos la sección principal y la reemplazamos con el mensaje
+    const step1 = document.getElementById('step1');
+    if (step1) {
+      step1.innerHTML = `
+        <div style="text-align: center; padding: 50px 20px; color: #fff;">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#ffaa00" stroke-width="2" style="margin-bottom: 20px;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <h2 style="color: #ffaa00; margin-bottom: 15px; font-size: 1.8em;">Tienda Cerrada</h2>
+          <p style="font-size: 1.1em; line-height: 1.6; color: #ddd;">
+            Disculpe, en este momento no estamos tomando pedidos.<br><br>
+            Nuestros horarios de atención son:<br>
+            <strong style="color: #fff;">11:00 a 15:00</strong><br>
+            y de<br>
+            <strong style="color: #fff;">20:00 a 00:30</strong>
+          </p>
+        </div>
+      `;
+    }
+
+    // Opcional: Ocultar la barra inferior del carrito si existe
+    const floatingCart = document.querySelector('.floating-cart'); 
+    if (floatingCart) {
+      floatingCart.style.display = 'none';
+    }
+    
+    // Retornamos false para avisarle al resto del código que no debe cargar el menú
+    return false; 
+  }
+
+  // Si está abierto, retornamos true para que la App siga funcionando normal
+  return true;
+}
+
 // Link EXEL ( https://docs.google.com/spreadsheets/d/1n9pWX7tEE2E8wDJfGGxYPjAlWkqXXcvdAxa_a272Z_g/edit?gid=0#gid=0 )
+
+
+
