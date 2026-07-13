@@ -207,6 +207,43 @@ const menuData = {
         image: 'images/pizza-muzzarella.jpg'
       }
     }
+  },empanadas: {
+    name: 'Empanadas',
+    image: 'images/empanada.jpg',
+    hasVariety: true,
+    varieties: ['pollo'],
+    isSimple: true,
+    products: {
+      promos: {
+        '12_unidades-c': {
+          name: 'Empanadas de Carne x24 mas 1 Pepsi 2l',
+          price: 23000,
+          image: 'images/empanada.jpg'
+        },
+        '12_unidades-p': {
+          name: 'Empanadas de Pollo x24 mas 1 Pepsi 2l',
+          price: 23000,
+          image: 'images/empanada.jpg'
+        },
+        '12_unidades-m': {
+          name: 'Empanadas de Mondongo x24 mas 1 Pepsi 2l',
+          price: 23000,
+          image: 'images/empanada.jpg'
+        }
+      },
+      pollo: {
+        '12_unidades': {
+          name: 'Empanadas de Pollo x12',
+          price: 10000,
+          image: 'images/empanada.jpg'
+        },
+        '6_unidades': {
+          name: 'Empanadas de Pollo x6',
+          price: 5500,
+          image: 'images/empanada.jpg'
+        }
+      }
+    }
   },
   papas: {
     name: 'Papas Fritas',
