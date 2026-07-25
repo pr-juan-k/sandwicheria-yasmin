@@ -144,7 +144,7 @@ const menuData = {
     image: 'images/hamburguesa.jpg',
     hasVariety: false,
     hasMedallions: true,
-    medallionPrice: 1500,
+    medallionPrice: 1600,
     maxMedallions: 3,
     hasExtraPapas: true, // <-- NUEVO
     extraPapasPrice: 500, // <-- NUEVO
