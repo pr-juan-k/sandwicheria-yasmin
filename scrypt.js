@@ -260,6 +260,32 @@ const menuData = {
         image: 'images/papas-bandeja-chica.jpg'
       }
     }
+  },
+  bebidas: {
+    name: 'Bebidas',
+    image: 'images/bebidas.jpg', // Esta es la foto principal de la categoría
+    isBeverage: true,
+    products: {
+      pepsi: {
+        name: 'Pepsi 2L',
+        price: 3000,
+        image: 'images/pepsi.jpeg' // <-- AGREGAR ESTO
+      },
+      fanta: {
+        name: 'Mirinda Manzana 2L',
+        price: 3000,
+        image: 'images/mirinda.jpeg' // <-- AGREGAR ESTO
+      },fresh1: {
+        name: 'Fresh Manzana 1.5L',
+        price: 2000,
+        image: 'images/fresh-manzana.png' // <-- AGREGAR ESTO
+      },
+      fresh2: {
+        name: 'Fresh Mix Frutal 1.5L',
+        price: 2000,
+        image: 'images/fresh-mix.png' // <-- AGREGAR ESTO
+      }
+    }
   }
 };
 
@@ -307,7 +333,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Renderizado del Menu Principal
 // ========================================
 function renderMenuItems() {
-  // NUEVO: Verificamos el horario antes de hacer cualquier cosa
+  // Verificamos el horario antes de hacer cualquier cosa (actualmente comentado por ti)
   if (!verificarHorario()) return; 
   
   const menuGrid = document.getElementById('menuGrid');
@@ -315,7 +341,9 @@ function renderMenuItems() {
   
   Object.keys(menuData).forEach(key => {
     const item = menuData[key];
-    if (item.isBeverage) return; // Skip beverages in main menu
+    
+    // ELIMINAMOS LA LÍNEA QUE OCULTABA LAS BEBIDAS:
+    // if (item.isBeverage) return; 
     
     const menuItem = document.createElement('div');
     menuItem.className = 'menu-item';
@@ -334,7 +362,6 @@ function renderMenuItems() {
     menuGrid.appendChild(menuItem);
   });
 }
-
 // ========================================
 // Seleccion de Categoria
 // ========================================
@@ -934,8 +961,9 @@ function renderBeverages() {
     beverageItem.className = 'beverage-item';
     beverageItem.onclick = () => addBeverage(key);
     
+    // CORRECCIÓN AQUÍ: Cambiamos menuData.bebidas.image por beverage.image
     beverageItem.innerHTML = `
-      <img loading="lazy" src="${menuData.bebidas.image}" alt="${beverage.name}" class="beverage-image">
+      <img loading="lazy" src="${beverage.image}" alt="${beverage.name}" class="beverage-image">
       <div class="beverage-name">${beverage.name}</div>
       <div class="beverage-price">$${beverage.price.toLocaleString()}</div>
     `;
@@ -952,7 +980,8 @@ function addBeverage(beverageKey) {
     name: beverage.name,
     price: beverage.price,
     details: '',
-    image: menuData.bebidas.image,
+    // CORRECCIÓN AQUÍ: Para que en el resumen del carrito también salga la foto correcta
+    image: beverage.image, 
     category: 'bebidas'
   };
   
