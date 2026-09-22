@@ -1,7 +1,7 @@
 // ========================================
 // Configuracion - Cambia el numero de WhatsApp aqui
 // ========================================
-const WHATSAPP_NUMBER = '5493816024454'; // Formato: codigo pais + numero sin espacios ni guiones
+const WHATSAPP_NUMBER = '549381xxxxxx'; // Formato: codigo pais + numero sin espacios ni guiones
 let extraPapasCount = 0;
 function changePapas(delta) {
   const categoryData = menuData[selectedCategory];
@@ -1170,7 +1170,7 @@ function sendWhatsApp() {
   }
   
   // 3. Armar el encabezado del mensaje
-  let message = '🍔 *NUEVO PEDIDO*\n\n';
+  let message = '🍔 *Cuenta con deuda*\n\n';
   message += `👤 *Cliente:* ${nombre}\n`;
   message += `🛵 *Entrega:* ${entrega}\n`;
   
